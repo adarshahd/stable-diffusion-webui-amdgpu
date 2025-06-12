@@ -160,6 +160,9 @@ case "$gpu_info" in
         printf "Experimental support for Renoir: make sure to have at least 4GB of VRAM and 10GB of RAM or enable cpu mode: --use-cpu all --no-half"
         printf "\n%s\n" "${delimiter}"
     ;;
+    *"Phoenix1"*) export HSA_OVERRIDE_GFX_VERSION=11.0.0
+        export TORCH_COMMAND="pip install torch torchvision --index-url https://download.pytorch.org/whl/nightly/rocm6.4"
+    ;;
     *)
     ;;
 esac
@@ -201,7 +204,7 @@ else
     printf "\n%s\n" "${delimiter}"
     printf "Clone stable-diffusion-webui"
     printf "\n%s\n" "${delimiter}"
-    "${GIT}" clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git "${clone_dir}"
+    "${GIT}" clone https://github.com/adarshahd/stable-diffusion-webui-amdgpu.git "${clone_dir}"
     cd "${clone_dir}"/ || { printf "\e[1m\e[31mERROR: Can't cd to %s/%s/, aborting...\e[0m" "${install_dir}" "${clone_dir}"; exit 1; }
 fi
 
